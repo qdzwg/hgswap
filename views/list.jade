@@ -1,0 +1,71 @@
+extends layout
+
+block stylesheets
+  if module==='traffic'|| module==='hotel'
+    link(rel="stylesheet", href="/stylesheets/calendar.css")
+  link(rel="stylesheet", href="/stylesheets/dropload.css")
+  link(rel="stylesheet", href="/stylesheets/list.css")
+block javascripts
+  if module==='traffic'|| module==='hotel'
+    script(type='text/javascript', src='/javascripts/jquery.calendar.js')
+  script(type='text/javascript', src='/javascripts/dropload.min.js')
+  script.
+    var searchName = '#{searchName}';
+  script(type='text/javascript', src='/javascripts/list.js')
+block content
+  include common/footer
+  include common/index
+  include list/common
+
+  //- 筛选条件
+  unless module==='commentList'
+    if module==='traffic'
+      .traffic-filter
+        .disAdress
+          select
+            option(value="") 出发站
+            each item in data[0].datas
+              option(value=item.value)=item.cname
+          img(src="/images/list/traffic-dire.png", alt="")
+          select
+            option(value="") 终点站
+            each item,index in data[0].datas
+              option(value=item.value)=item.cname
+        .startDay
+          span#prevDay 前一天
+          a(href="javascript:;")
+            +formatDate(new Date())
+          span#nextDay 后一天     
+    else 
+      #search-h(class=module==='strategy'?'search-bar-box':(module==='order'?'member-search-box':'search-box'))
+        unless module==='order'||module==='hotel'
+          +search(searchName)
+        if module === 'hotel'
+          .traffic-filter.hotel-filter#hotelCalendar
+            .disAdress.clearfix
+              .startDay.fl#beginDate
+                em 入住
+                a(href="javascript:;")
+                  +formatDate(new Date())
+              .startDay.fl#endDate
+                em 离店
+                a(href="javascript:;")
+                  +formatDate(new Date())  
+        unless module==='strategy'
+          +filter(module,orderStatus)
+    unless module==='strategy'||module==='traffic'
+      +panel(module,module==='order'?null:data)
+
+  //- 列表
+  div(class='drop-box '+(module==='strategy'?'raiders-list':(module==='commentList'?'comment-list':'')) data-module=module)
+    case module
+      when 'shop'
+        ul(class="goods-list clearfix")
+      when 'traffic'
+        ul(class="page-list list-main traffic-list")   
+      default
+        ul(class="page-list list-main")  
+  #mask.mask
+  if module==='traffic' || module==='hotel'
+    #calendar
+  #socialShare

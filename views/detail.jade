@@ -1,0 +1,79 @@
+extends layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/calendar.css")
+  link(rel="stylesheet", href="/stylesheets/swiper-3.4.2.min.css")
+  link(rel="stylesheet", href="/stylesheets/detail.css")
+block javascripts
+  if data.length > 1
+    script.
+      var goodsCode='#{data[1].data.goodsCode}' || ''
+  script.
+    console.log('#{module}')  
+    if ('#{module}' === 'hotel'){
+      var beginDate = '#{beginDate}',endDate = '#{endDate}'
+    }
+  script(type='text/javascript', src='/javascripts/jquery.calendar.js')
+  script(type='text/javascript', src='/javascripts/swiper-3.4.2.jquery.min.js')
+  script(type='text/javascript', src='/javascripts/detail.js')
+block content
+  include common/footer
+  include detail/common
+  
+  if module==='shop'
+    include order/orderBtn
+  if module !== 'qr'  
+    a.back-bar(href='javascript:window.history.back(-1);')
+  if module==='strategy'|| module === 'qr'
+    +detailShow(data[0].data,module)
+  else
+    .block_home_slider.details-slider
+      #home_swiper.swiper-container.detail-container
+        ul.swiper-wrapper
+          if module==='rentCar'||module==='guide'
+            li
+                img(src='#{data[0].data.smallImg}', alt='')
+          else
+            each item in data[0].data
+              li.swiper-slide
+                  img(src='#{item.wapUrl}')      
+        .swiper-pagination          
+    if module==='strategy'
+      .raiders-details
+        .raiders-info
+          h3=data.name
+          p
+            span
+              i.font-icon.icon-clock
+              | #{data[0].data.pubDate}
+            span.fr
+              i.font-icon.icon-views
+              | #{data[0].data.browseNum}
+        .raiders-content!=data[0].data.content
+    else
+      +information(data,module)
+      .page-line
+      if module==='guide'||module==='rentCar'
+        +detailShow(data[0].data,module)
+      else
+        -var data3=data[3]?data[3].data:""
+        +detailList(data[1].data,data3,module)
+  .page-line
+  if module==='shop'||module==='combo'
+    include order/orderBtn
+    +orderBtn({id:data[1].data.modelCode,rateCode:data[1].data.rateCode,isAble:data[1].data.isAble},module,'detail')
+  else if (module === 'qr')
+    .go-member
+      a(href='/member')
+        i.icon-imember
+        em="我的"  
+  else
+    +footer
+  .mask#mask
+  .tips
+    p
+    a(href="javascript:;").queding 确定
+  #calendar
+  #socialShare
+
+

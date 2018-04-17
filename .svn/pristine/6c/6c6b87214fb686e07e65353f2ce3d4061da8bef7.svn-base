@@ -1,0 +1,269 @@
+extends layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/swiper-3.4.2.min.css")
+  link(rel="stylesheet", href="/stylesheets/index.css")
+  style.
+    body {}
+block javascripts
+  script(type='text/javascript', src='/javascripts/swiper-3.4.2.jquery.min.js')
+  script(type='text/javascript', src='/javascripts/touch-0.2.14.min.js')
+  script(type='text/javascript', src='/javascripts/index.js')
+block content
+  include common/footer
+  // search
+  .hs-top
+    .hs-logo
+      img(src='images/index/logo_03.jpg', alt='...')
+    .hs-search
+      .search-box
+        input(type='text', placeholder='搜索门票')
+        span.search-btn.icon-search#searchBtn
+  // banner
+  .hs-banner
+    // background banner
+    .bg-banner
+      #banner_swiper.swiper-container
+        .swiper-wrapper
+          each item in data[0].data['hqcwap_head_carousel']
+            .swiper-slide
+              a(href=item.url)
+                img(src=item.mig, alt=item.name)
+        // 分页器
+        .swiper-pagination
+    // shuffling announcement
+    .top-announcement
+      img.icon-announcement(src='images/index/icon_announ' +
+      '' +
+      'cement_03.png', alt='...')
+      #shuffling_ann.swiper-container
+        .swiper-wrapper
+          each item in data[0].data['hqcwap_announcement']
+            .swiper-slide
+              a(href=item.url) #{item.name}
+  // nav
+  .hs-nav
+    ul.clearfix
+      li
+        a(href='/list/ticket')
+          img(src='images/index/ico_ticket_03.jpg', alt='...')
+          p 景区门票
+      li
+        a(href='/list/hotel')
+          img(src='images/index/ico_hotel_03.jpg', alt='...')
+          p 酒店住宿
+      li
+        a(href='list/combo')
+          img(src='images/index/ico_combo_03.jpg', alt='...')
+          p 自由行
+      li
+        a(href='#')
+          img(src='images/index/ico_tour_03.jpg', alt='...')
+          p 跟团游
+      li
+        a(href='/list/repast')
+          img(src='images/index/ico_foods_07.jpg', alt='...')
+          p 餐饮美食
+      li
+        a(href='/list/shop')
+          img(src='images/index/ico_shopping_06.jpg', alt='...')
+          p 娱乐购物
+      li
+        a(href='/list/strategy')
+          img(src='images/index/ico_strategy_07.jpg', alt='...')
+          p 游玩攻略
+      li
+        a(href='#')
+          img(src='images/index/ico_news_07.jpg', alt='...')
+          p 最新资讯
+  // advertising
+  .hs-list.hs-adv
+    .fq-slide-box
+      .hd.fq-recommend-nav
+        .list-title
+          em 热门目的地
+          //a.fr(href='#')
+            | 更多
+            i.icon-iconfont-jiantou
+        .hot-list-images
+          - var des1= data[0].data['address'][0];
+          - var des2= data[0].data['address2'][0];
+          - var des3= data[0].data['address3'][0];
+          .hot-img.hot-big-image
+            a(href=des1.url)
+              img(src=des1.mig, alt=des1.name)
+              .hot-img-title
+                .line
+                .en-title #{des1.eng.toUpperCase()}
+                .cn-title #{des1.name}
+
+          .hot-img.hot-small-image.clearfix
+            a(href=des2.url)
+              img(src=des2.mig, alt=des2.name)
+              .hot-img-title
+                .line
+                .en-title #{des2.eng.toUpperCase()}
+                .cn-title #{des2.name}
+            a(href=des3.url)
+              img(src=des3.mig, alt=des3.name)
+              .hot-img-title
+                .line
+                .en-title #{des3.eng.toUpperCase()}
+                .cn-title #{des3.name}
+  // active
+  .hs-active
+    #active_swiper.swiper-container
+      .swiper-wrapper
+        each item in data[0].data['adv']
+          .swiper-slide
+            a(href=item.url)
+              img(src=item.mig, alt=item.name)
+              p.title #{item.name}
+              span
+                i ￥
+                em #{item.price}
+                s ￥#{item.beforePrice}
+              strong
+                img(src='images/index/ico_hot_03.png', alt='...')
+  // 分类列表
+  .hs-list
+    #slideTxtBox.fq-slide-box
+      .hd.fq-recommend-nav
+        .list-title.bottom-line
+          em 当季热卖
+          a#listUrl.fr(href='/list/ticket')
+            | 更多
+            i.icon-iconfont-jiantou
+        ul.clearfix
+          li.on(data-url='/list/ticket') 门票
+          li(data-url='/list/hotel')  酒店
+          li(data-url='/list/repast')  美食
+          li(data-url='/list/shop')  特产
+      .img-list
+        #fq_swiper.swiper-container
+          .swiper-wrapper.fq-img-list
+            ul.swiper-slide.clearfix
+              each ticket in data[0].data['hqcwap_ticket']
+                li
+                  a.clearfix(href=ticket.url)
+                    img(src=ticket.mig, alt=ticket.name)
+                    span.content
+                      em.title #{ticket.name}
+                      strong #{ticket.remark}
+                      span.price
+                        i ￥
+                        em #{ticket.price}
+                        s ￥#{ticket.beforePrice}
+                        if ticket.labels
+                          span.label
+                            if ticket.labels
+                              if ticket.labels.indexOf(',') !== -1
+                                - var labelsArrow = ticket.labels.split(',');
+                                each label in labelsArrow
+                                  em #{label}
+                              else
+                                em #{ticket.labels}
+
+            ul.swiper-slide.clearfix
+              each ticket in data[0].data['hqcwap_hotel']
+                li
+                  a.clearfix(href=ticket.url)
+                    img(src=ticket.mig, alt=ticket.name)
+                    span.content
+                      em.title #{ticket.name}
+                      strong #{ticket.remark}
+                      span.price
+                        i ￥
+                        em #{ticket.price}
+                        s ￥#{ticket.beforePrice}
+                        if ticket.labels
+                          span.label
+                            if ticket.labels
+                              if ticket.labels.indexOf(',') !== -1
+                                - var labelsArrow = ticket.labels.split(',');
+                                each label in labelsArrow
+                                  em #{label}
+                              else
+                                em #{ticket.labels}
+            ul.swiper-slide.clearfix
+              each ticket in data[0].data['hqcwap_repast']
+                li
+                  a.clearfix(href=ticket.url)
+                    img(src=ticket.mig, alt=ticket.name)
+                    span.content
+                      em.title #{ticket.name}
+                      strong #{ticket.remark}
+                      span.price
+                        i ￥
+                        em #{ticket.price}
+                        s ￥#{ticket.beforePrice}
+                        if ticket.labels
+                          span.label
+                            if ticket.labels
+                              if ticket.labels.indexOf(',') !== -1
+                                - var labelsArrow = ticket.labels.split(',');
+                                each label in labelsArrow
+                                  em #{label}
+                              else
+                                em #{ticket.labels}
+
+            ul.swiper-slide.clearfix
+              each ticket in data[0].data['hqcwap_specialty']
+                li
+                  a.clearfix(href=ticket.url)
+                    img(src=ticket.mig, alt=ticket.name)
+                    span.content
+                      em.title #{ticket.name}
+                      strong #{ticket.remark}
+                      span.price
+                        i ￥
+                        em #{ticket.price}
+                        s ￥#{ticket.beforePrice}
+                        if ticket.labels
+                          span.label
+                            if ticket.labels
+                              if ticket.labels.indexOf(',') !== -1
+                                - var labelsArrow = ticket.labels.split(',');
+                                each label in labelsArrow
+                                  em #{label}
+                              else
+                                em #{ticket.labels}
+
+  // 游记攻略
+  .hs-list.hs-strategy
+    .fq-slide-box
+      .hd.fq-recommend-nav
+        .list-title
+          em 游记攻略
+          a.fr(href='/list/strategy')
+            | 更多
+            i.icon-iconfont-jiantou
+      - var strategy = data[0].data['hqcwap_travel'];
+      each item,index in strategy
+        if index == 0
+          a(href=item.url).hs-strategy-main
+            .strategy-top-banner
+              img(src=item.mig, alt=item.name)
+              .banner-title
+                p #{item.name}
+              .gradient
+        else
+          a(href=item.url).hs-strategy-main
+            .hs-strategy-lists
+              .strategy-list
+                .left-img.fl
+                  img(src=item.mig, alt=item.name)
+                .right-content.fr
+                  p.title #{item.name}
+                  p.content #{item.remark}
+              .strategy-labels.clearfix
+                .time.fr #{item.createTime}
+                .labels
+                  if item.labels
+                    if item.labels.indexOf(',') !== -1
+                      - var labelsArrow = item.labels.split(',');
+                      each label in labelsArrow
+                        span #{label}
+                    else
+                      span #{item.labels}
+  +footer

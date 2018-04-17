@@ -1,0 +1,267 @@
+extends layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/swiper-3.4.1.min.css")
+  link(rel="stylesheet", href="/stylesheets/index.css")
+  link(rel='stylesheet', href="/stylesheets/indexnew.css")
+  link(rel='stylesheet', href="/stylesheets/commonnew.css")
+block javascripts
+  script(type='text/javascript', src='/javascripts/swiper-3.4.1.jquery.min.js')
+  script(type='text/javascript', src='/javascripts/touch-0.2.14.min.js')
+  script(type='text/javascript', src='/javascripts/index.js')
+  script(type='text/javascript', src='/javascripts/indexnew.js')
+block content
+  include common/footer
+  include list/pagelist
+  .hgs-header
+    .main
+      .header-search.clearfix
+        .header-place
+          .model-select-box
+            .model-select-text(data-value='ticket') 景区
+            ul.model-select-option
+              li(data-option='hotel') 酒店
+              //li(data-option='repast') 美食
+              li.seleced(data-option='ticket') 景区
+              li(data-option='line') 自由行
+        .header-search-input.clearfix
+          input(type='text',placeholder='请输入景区名称搜索')#ticket-text
+          i.font-icon.icon-search#ser-btn
+    .main.hgs-nav
+      .swiper-container(id='hgs_nav')
+        .swiper-wrapper
+          .swiper-slide
+            .nav-slide.clearfix
+              a(href='/list/ticket')
+                img(src='/images/indexnew/menu_jingqu_03.png', alt='')
+                em 景区
+              a(href='/list/hotel')
+                img(src='/images/indexnew/menu_jiudian_03.png', alt='')
+                em 酒店
+              //a(href='/list/route')
+              //  img(src='/images/indexnew/menu_gentuanyou_03.png', alt='')
+              //  em 跟团游
+              //a(href='/global')
+              //  img(src='/images/indexnew/menu_quanchengyou_03.png', alt='')
+              //  em 全域游
+              a(href='/list/combo')
+                img(src='/images/indexnew/menu_ziyouxing_03.png', alt='')
+                em 自由行
+              //a.xianshi(href='/list/specials')
+              //  img(src='/images/indexnew/xianshi_03-.png', alt='')
+              //  em 限时特价
+              //a(href='/list/repast')
+              //  img(src='/images/indexnew/menu_meishi_03.png', alt='')
+              //  em 美食
+              //a(href='/list/goods')
+              //  img(src='/images/indexnew/goods_03.png', alt='')
+              //  em 旅游商品
+              a(href='/list/strategy')
+                img(src='/images/indexnew/menu_gonglue_03.png', alt='')
+                em 攻略
+          //.swiper-slide
+          //  .nav-slide.clearfix
+              //a(href='/list/strategy')
+              //  img(src='/images/indexnew/menu_gonglue_03.png', alt='')
+              //  em 攻略
+          //    a(href='/duocaiguizhou')
+          //      img(src='/images/indexnew/dcgz_03.png', alt='')
+          //      em 多彩贵州
+          //    a(href='/custom')
+          //      img(src='/images/indexnew/srdz_03.png', alt='')
+          //      em 私人定制
+          //    a(href='/list/news?code=news-20160525145307-432')
+          //      img(src='/images/indexnew/news_03.png', alt='')
+          //      em 新闻中心
+          //    a(href='/list/news?code=news-20160524110920-369')
+          //      img(src='/images/indexnew/active_03.png', alt='')
+          //      em 活动中心
+          //    a(href='/list/rentCar')
+          //      img(src='/images/indexnew/car_03.png', alt='')
+          //      em 租车
+        //分页器
+        //.swiper-pagination
+  .hgs-banner.main
+    #banner_swiper.swiper-container
+      .swiper-wrapper
+        each slide,i in indexData.wap_carousel
+          .swiper-slide
+            a(href=slide.url)
+              img(src=slide.mig, alt='')
+      // 分页器
+      .swiper-pagination
+    .banner-mask
+  .page-line.spring-line
+  .hgs-super-strategy
+    .main
+      .super-strategy-title
+        img(src='/images/indexnew/zuiqianggonglue_04.png', alt='')
+      .super-strategy-text
+        each item in indexData.wap_strategy
+          .child-text
+            img.fl(src='/images/indexnew/rewen_07.png', alt='')
+            a.fl(href='/news/'+item.baseCode)=item.title
+  .hgs-by-recommend
+    .main
+      .recommend-title.clearfix.bytj-box
+        img.fl(src='/images/indexnew/byyj-img.png', alt='')
+        span.fl 必游推荐
+      #img_swiper.swiper-container
+        .swiper-wrapper
+          -for (var key=0;key<Math.ceil(indexData.wap_travel_recommand.length/3);key++)
+            .swiper-slide
+              .by-img-list.clearfix
+                -for (var keys=0;keys<3;keys++)
+                  if indexData.wap_travel_recommand[key * 3 + keys]
+                    -var localData=indexData.wap_travel_recommand[key*3+keys]
+                    a(href=localData.url).img-list-a
+                      .img-list-child
+                        img(src=localData.mig, alt='')
+                        p=localData.title
+                        span
+                          i
+                            | 原
+                            | #{localData.original_price}
+                          em
+                            | 现
+                            | #{localData.price}
+        // 分页器
+        .swiper-pagination
+  .page-line.spring-line
+  .hgs-fq-recommend
+    .main
+      .recommend-title.clearfix.fqtj-box
+        img.fl(src='/images/indexnew/fqtj-img.png', alt='')
+        span.fl 分区推荐
+      #slideTxtBox.fq-slide-box
+        .hd.fq-recommend-nav
+          ul.clearfix
+            li.on 景区
+            li 酒店
+            //li 跟团
+            //li 美食
+            //li 特产
+        #fq_swiper.swiper-container
+          .swiper-wrapper.fq-img-list
+            -var ticketData = indexData.wap_ticket,hotelData = indexData.wap_hotel,foodData = indexData.wap_food,goodsData = indexData.wap_goods
+            if ticketData.length>0
+              ul.swiper-slide.clearfix
+                each item in ticketData
+                  li
+                    a(href=item.url)
+                      img(src=item.mig, alt="")
+                      p=item.title
+                      span
+                        em
+                          i.originPrice
+                            | 原
+                            | #{item.original_price}
+                          i.nowPrice
+                            | 现
+                            | #{item.price}
+            if hotelData.length > 0
+              ul.swiper-slide.clearfix
+                each item in hotelData
+                  li
+                    a(href=item.url)
+                      img(src=item.mig, alt="")
+                      p=item.title
+                      span
+                        em
+                          i.originPrice
+                            | 原
+                            | #{item.original_price}
+                          i.nowPrice
+                            | 现
+                            | #{item.price}
+            //if foodData.length > 0
+            //  ul.swiper-slide.clearfix
+            //    each item in foodData
+            //      li
+            //        a(href=item.url)
+            //          img(src=item.mig, alt="")
+            //          p=item.title
+            //          span
+            //            em
+            //              i.originPrice
+            //                | 原
+            //                | #{item.original_price}
+            //              i.nowPrice
+            //                | 现
+            //                | #{item.price}
+            //if goodsData.length > 0
+            //  ul.swiper-slide.clearfix
+            //    each item in goodsData
+            //      li
+            //        a(href=item.url)
+            //          img(src=item.mig, alt="")
+            //          p=item.title
+            //          span
+            //            em
+            //              i.originPrice
+            //                | 原
+            //                | #{item.original_price}
+            //              i.nowPrice
+            //                | 现
+            //                | #{item.price}
+      // 特价 start
+      h3.home-tit.clearfix.borb0
+        img(src="/images/indexnew/xsqg-img.png")
+        span.xsqg-title
+          | 限时
+          em 抢
+          | 购
+      +list("specials",indexData.wap_limit_sale,"index")
+      .other-module.clearfix
+        a(href='javascript:;')
+          p 会员专享
+          p.detail 门票酒店打折优惠多
+          img(src='/images/indexnew/huiyuanri_03.png', alt='')
+        a(href='javascript:;')
+          p 特价优惠
+          p.detail 让旅行更完美
+          img(src='/images/indexnew/tejia_03.png', alt='')
+        a(href='javascript:;')
+          p 玩转贵州全攻略
+          p.detail 快行漫游带您嗨翻天
+          img(src='/images/indexnew/wanzhuan_03.png', alt='')
+  .page-line.spring-line
+  .hgs-other-recommend
+    .main
+      .recommend-title.clearfix.cnxh-box
+        img.fl(src='/images/indexnew/cnxh-img.png', alt='')
+        span.fl 猜你喜欢
+      #other_swiper.swiper-container
+        .swiper-wrapper
+          -for (var key=0;key<Math.ceil(indexData.wap_guess.length/2);key++)
+            .swiper-slide
+              .other-img-list.clearfix
+                -for (var keys=0;keys<2;keys++)
+                  if indexData.wap_guess[key * 2 + keys]
+                    -var localData=indexData.wap_guess[key*2+keys]
+                    .img-list-module.clearfix
+                      a(href=localData.url)
+                        img(src=localData.mig, alt='')
+                        .img-module-description.clearfix
+                          .fl
+                            span=localData.title
+                            p #{localData.sale_num}人购买
+                          span.fr
+                            em #{localData.score}分
+                            i #{localData.price}元起
+        // 分页器
+        .swiper-pagination
+  footer
+    .footer-content
+      a(href='tel:0851-86889691')
+        i.font-icon.icon-iconfont-kefudianhua
+        | 联系我们
+      |           
+      a(href='javascript:;').qrCode
+        i.font-icon.icon-iconfont-guanzhu
+        | 关注我们
+  // 点击弹出二维码
+  .mask
+  .qrCode-box
+    img(src="/images/indexnew/fixbtn-qr_03.jpg")
+  +footer

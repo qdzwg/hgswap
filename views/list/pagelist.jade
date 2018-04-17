@@ -1,0 +1,271 @@
+mixin list(mold,items)
+   -if(items=="undefined"||items==""||items==null)
+      .no-data.n-nbm
+         i.font-icon.icon-iconfont-gantanhaom
+         p 暂无信息
+   -else
+      -var moldt=mold
+      case mold
+         when 'line'
+            -moldt='zyx'
+
+      div(data-mold=mold).inner#detailsList.spe-box.clearfix
+         if(mold=='specials')
+            input(value=items.deadline,type="hidden")#startTime
+            - each item in items
+               +specialslist(item)
+               .page-line
+         else
+            ul(class=moldt + "-list "+(mold==='goods'?'clearfix':'')).page-list.ticket-list.hauto
+               - each item in items.data
+                  li.opacity
+                     a(href='../details/'+mold+'/'+item.id)
+                        if(mold=='strategy')
+                           +strategylist(item)
+                        else
+                           div(class=mold==='goods'?'goods-list-img':'page-list-img')
+                              img(src=item.mainUrl,width="100%")
+                           case mold
+                              when "ticket"
+                                 +ticketlist(mold,item)
+                              when "rentCar"
+                                 +carlist(mold,item)
+                              when "hotel"
+                                 +hotellist(mold,item)
+                              when "route"
+                                 +routelist(mold,item)
+                              when "combo"
+                                 +linelist(item)
+                              when "repast"
+                                 +repastlist(item)
+                              when "goods"
+                                 +goodslist(item)
+                              when "news"
+                                 +newslist(item)
+
+mixin strcut(str,num)
+   - if(str.length>num)
+      = str.substr(0, num)+"..."
+   -else
+      = str
+
+//- 门票列表
+mixin ticketlist(mold,item)
+   div.page-list-info
+      h3.page-list-title=item.parkName
+      -var reg = new RegExp("<[^<]*>", "gi")
+      - if(item.subTitle!="")
+         p.page-list-article
+            +strcut(item.subTitle.replace(reg,''),17)
+      .page-list-zy
+         - each tag,i in item.tags
+            //- if(i<2)
+            span.page-list-tits=tag
+      p.page-list-explian.clearfix
+         span.fl
+            | 已售
+            =item.saleNum
+               em.c-base.score #{item.commentScore===null?0:item.commentScore}分
+         span.original-price.mb2
+            strong
+               | 原价：
+               =item.normalPrice
+         span.price
+            em ￥
+            strong=item.startingPrice
+
+//- 租车列表
+mixin carlist(mold,item)
+   div.page-list-info
+      h3.page-list-title=item.carTitle
+      -var reg = new RegExp("<[^<]*>", "gi")
+      - if(item.subTitle!="")
+         p.page-list-article
+            +strcut(item.subTitle.replace(reg,''),17)
+      .page-list-zy
+         - each tag,i in item.tags
+            //- if(i<2)
+            span.page-list-tits=tag
+      p.page-list-explian.clearfix
+         span.fl
+            | 已售
+            =item.saleNum
+         span.original-price.mb2
+            strong
+               | 原价：
+               =item.normalPrice
+         span.price
+            em ￥
+            strong=item.startingPrice
+
+//- 酒店列表
+mixin hotellist(mold,item)
+   .page-list-info
+      h3.page-list-title=item.productName
+      p.page-list-article
+         i.page-icon.index-ditu
+         +strcut(item.addr,16)
+      p.page-list-explian
+         - each tag,i in item.tags
+            span.pro-flag.c-base.border-base.hotel-base=tag
+         span.hotel-icon
+            -each attr in item.attr.machineData
+               case attr.isAll
+                  when "1"
+                     i.page-icon(class=attr.code)
+                  default
+                     span
+
+      p.page-list-explian.clearfix
+         span.fl
+            | 已售
+            =item.saleNum
+            em.c-base.score #{item.commentScore===null?0:item.commentScore}分
+         span.price
+            em ￥
+            strong=item.startingPrice
+               | 起
+         span.original-price.yj
+            strong
+               | 原价:
+               =item.originalPrice
+//- 跟团游列表
+mixin routelist(mold,item)
+   div.page-list-info
+      .mh28
+         h3.page-list-title=item.productName
+         -var reg = new RegExp("<[^<]*>", "gi")
+            .page-list-zy
+               for tags in item.tags
+                  span.page-list-tits=tags
+      p.page-list-explian
+         span.fl
+            span.clr-org #{item.saleNum}
+            |人出游
+         span.original-price
+            strong 原价：#{item.originalPrice}
+         span.price
+            em.clr-org ￥
+            strong.clr-org=item.startingPrice
+
+//- 自由行列表
+mixin linelist(item)
+   div.page-list-info
+      .mh28
+         h3.page-list-title=item.productName
+         //-var reg = new RegExp("<[^<]*>", "gi")
+         //-- if(item.subTitle!="")
+            p.page-list-article
+               +strcut(item.subTitle.replace(reg,''),30)
+         .page-list-zy
+            for tags in item.tags
+               span.page-list-tits=tags
+      p.page-list-explian
+         span.fl
+            span.clr-org #{item.mockSale}
+            |人出游
+         span.original-price
+            strong 原价：#{item.originalPrice}
+         span.price
+            em.clr-org ￥
+            strong.clr-org=item.startingPrice
+
+//- 餐饮列表
+mixin repastlist(item) 
+   div.page-list-info
+      h3.page-list-title=item.productName
+      -var reg = new RegExp("<[^<]*>", "gi")
+      - if(item.addr!="")
+         p.page-list-article
+            i.page-icon.index-ditu
+            +strcut(item.addr.replace(reg,''),30)
+      p.page-list-explian(style='text-align:left')
+         - each tag,i in item.tags
+            -if (i<2)
+               span.pro-flag.border-base.hotel-base.food-base=tag
+      p.page-list-explian.clearfix
+         span.fl(style="text-align:left")
+            | 已售
+            =item.mockSale
+            em.c-base.score #{item.commentScore===null?0:item.commentScore}分
+         span.price
+            | 人均
+            em ￥
+            strong=item.perCapita
+
+//- 商品列表
+mixin goodslist(item)
+   h3.goods-list-title
+      +strcut(item.productName,20)
+   p.goods-list-article=item.summary
+   p.goods-list-explian
+      span.price
+         em ￥
+         strong=item.startingPrice
+      //-span.original-price
+      //-   em ￥
+      //-   strong=item.originalPrice
+      span.fr
+         em.c-f63=item.mockSale
+         |件已售
+
+//- 攻略列表
+mixin strategylist(item)
+   .list-img
+      img(src=item.titleImgUrl, alt=item.title)
+   h3.page-list1-title
+      +strcut(item.title,20)
+   p.page-list1-explian.clearfix
+      span.time
+         i.page-icon.icon-iconfont-time
+         =item.createDate
+      span.fr
+         i.page-icon.icon-iconfont-chakan.mr02
+         =item.readNum
+
+//- 限时特价列表
+mixin specialslist(item)
+   .rec-img.opacity
+      a(href="javascript:;",data-id=item.baseCode)
+         img(src=item.img)
+   .buying-info
+      h3=item.name
+      h4=item.title
+      p.clearfix
+         span
+            strong=item.price
+            | 元起
+         a(href=item.url).qg-btn="立即抢购"
+   div(data-endTime=item.deadline).buying-time
+      span.day="00"
+      | 天
+      span.hour="00"
+      | :
+      span.minute="00"
+      | :
+      span.second="00"
+
+//- 新闻列表
+mixin newslist(item)
+   .page-list-info
+      h3.page-list-title=item.title
+      p.page-list-article
+         +strcut(item.info,20)
+      p.page-list-article
+         span=item.createDate
+
+//- 业务类型
+mixin productType(type)
+   case type
+      when "ticket"
+         ="门票"
+      when "hotel"
+         ="酒店"
+      when "route"
+         ="跟团游"
+      when "combo"
+         ="自由行"
+      when "repast"
+         ="美食"
+      when "goods"
+         ="特产"

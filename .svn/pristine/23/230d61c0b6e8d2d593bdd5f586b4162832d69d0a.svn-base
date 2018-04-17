@@ -1,0 +1,82 @@
+//mixin footer()
+//  .footer-box
+//    footer.clearfix
+//      a(href='/list/order')
+//        i.font-icon.icon-nav-order
+//        p 我的订单
+//      a(href='/cart')
+//        i.font-icon.icon-cat
+//        p 购物车
+//      a(href='/')
+//        .homeIco
+//          img(src="/images/index/homeIco.png", alt="")
+//      a(href='/member')
+//        i.font-icon.icon-iconfont-geren
+//        p 个人中心
+//      a(href='tel:1111111')
+//        i.font-icon.icon-nav-onlinekf
+//        p 在线客服
+mixin footer()
+  // footer
+  .h3rem
+  // footer nav
+  .footer-nav
+    .main
+      a(href="/list/ticket")
+        img(src="/images/indexnew/menu_jingqu_03.png", alt="")
+        em 景区
+      a(href="/list/hotel")
+        img(src="/images/indexnew/menu_jiudian_03.png", alt="")
+        em 酒店
+      //a(href="/list/route")
+      //  img(src="/images/indexnew/menu_gentuanyou_03.png", alt="")
+      //  em 跟团游
+      //a(href="/global")
+      //  img(src="/images/indexnew/menu_quanchengyou_03.png", alt="")
+      //  em 全域游
+      a(href="/list/combo")
+        img(src="/images/indexnew/menu_ziyouxing_03.png", alt="")
+        em 自由行
+      //a.xianshi(href="/list/specials")
+      //  img(src="/images/indexnew/xianshi_03-.png", alt="")
+      //  em 限时特价
+      //a(href="/list/repast")
+      //  img(src="/images/indexnew/menu_meishi_03.png", alt="")
+      //  em 美食
+
+      //a(href="/duocaiguizhou")
+      //  img(src="/images/indexnew/dcgz_03.png", alt="")
+      //  em 多彩贵州
+      //a(href="/custom")
+      //  img(src="/images/indexnew/srdz_03.png", alt="")
+      //  em 私人定制
+      //a(href="/list/news?code=news-20160525145307-432")
+      //  img(src="/images/indexnew/news_03.png", alt="")
+      //  em 新闻中心
+      //a(href="/list/news?code=news-20160524110920-369")
+      //  img(src="/images/indexnew/active_03.png", alt="")
+      //  em 活动中心
+      //a(href="/list/goods")
+      //  img(src="/images/indexnew/goods_03.png", alt="")
+      //  em 旅游商品
+      a(href="/list/strategy")
+        img(src="/images/indexnew/menu_gonglue_03.png", alt="")
+        em 攻略
+      //a(href="/list/rentCar")
+      //  img(src="/images/indexnew/car_03.png", alt="")
+      //  em 租车
+  .foot-nav
+    .main
+      div
+        a(href='/')
+          img(src='/images/indexnew/home_03.png', alt='')
+          //p 首页
+      div
+        span.spring-line.font-icon.icon-iconfont-jia
+      div
+        a(href='/member')
+          img(src='/images/indexnew/my_index_03.png', alt='')
+          //p 个人中心
+  .float-img
+    a(href="tel:0851-86889691")
+      img(src="/images/indexnew/float_img.png")

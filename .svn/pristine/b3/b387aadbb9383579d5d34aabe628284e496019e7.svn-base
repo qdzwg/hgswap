@@ -1,0 +1,11 @@
+TypeError: Cannot read property 'status' of undefined
+    at /usr/apps/node/hqcwap4005/routes/common/index.js:134:38
+    at Array.map (<anonymous>)
+    at /usr/apps/node/hqcwap4005/routes/common/index.js:133:33
+    at /usr/apps/node/hqcwap4005/node_modules/async/dist/async.js:3861:9
+    at /usr/apps/node/hqcwap4005/node_modules/async/dist/async.js:421:16
+    at iteratorCallback (/usr/apps/node/hqcwap4005/node_modules/async/dist/async.js:996:13)
+    at /usr/apps/node/hqcwap4005/node_modules/async/dist/async.js:906:16
+    at /usr/apps/node/hqcwap4005/node_modules/async/dist/async.js:3858:13
+    at /usr/apps/node/hqcwap4005/routes/common/index.js:121:33
+    at done (/usr/apps/node/hqcwap4005/node_modules/needle/lib/needle.js:432:14)

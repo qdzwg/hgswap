@@ -1,0 +1,114 @@
+/*@font-face {*/
+    /*font-family: 'icomoon';*/
+    /*src:  url('../font/icomoon.eot?si7t09');*/
+    /*src:  url('../font/icomoon.eot?si7t09#iefix') format('embedded-opentype'),*/
+    /*url('../font/icomoon.ttf?si7t09') format('truetype'),*/
+    /*url('../font/icomoon.woff?si7t09') format('woff'),*/
+    /*url('../font/icomoon.svg?si7t09#icomoon') format('svg');*/
+    /*font-weight: normal;*/
+    /*font-style: normal;*/
+/*}*/
+
+/*[class^="icon-"], [class*=" icon-"] {*/
+    /*!* use !important to prevent issues with browser extensions that change fonts *!*/
+    /*font-family: 'icomoon' !important;*/
+    /*speak: none;*/
+    /*font-style: normal;*/
+    /*font-weight: normal;*/
+    /*font-variant: normal;*/
+    /*text-transform: none;*/
+    /*line-height: 1;*/
+
+    /*!* Better Font Rendering =========== *!*/
+    /*-webkit-font-smoothing: antialiased;*/
+    /*-moz-osx-font-smoothing: grayscale;*/
+/*}*/
+/*.icon-add:before {*/
+    /*content: "\e905";*/
+/*}*/
+/*.icon-search:before {*/
+    /*content: "\e900";*/
+/*}*/
+/*.icon-focus-us:before {*/
+    /*content: "\e901";*/
+/*}*/
+/*.icon-call-us:before {*/
+    /*content: "\e902";*/
+/*}*/
+/*.icon-left-arrow:before {*/
+    /*content: "\e903";*/
+/*}*/
+/*.icon-right-arrow:before {*/
+    /*content: "\e904";*/
+/*}*/
+
+.main {
+    padding: 0 0.75rem;
+    height: 100%;
+}
+.footer-nav .main{
+    padding:0;
+}
+/*分割线*/
+.page-line{ height: 0.333rem; border-top: 1px solid #eee; clear: both;}
+
+/*主题背景*/
+.bg-spring {
+    background: url("../images/indexnew/bg-spring_01.png") no-repeat top center #f4f9ef;
+    background-size: 100%;
+}
+.bg-summer {
+    background: url("../images/indexnew/bg-autumn_01.png") no-repeat top center #eaf6fc;
+    background-size: 100%;
+}
+.bg-autumn {
+    background: url("../images/indexnew/bg-autumn_01.png") no-repeat top center #fef9ee;
+    background-size: 100%;
+}
+.bg-winter {
+    background: url("../images/indexnew/bg-winter_01.png") no-repeat top center #fef3ea;
+    background-size: 100%;
+}
+.buying-info{ padding:0.2rem 0.6rem 0.3rem; border-bottom:1px solid #ccc;}
+.buying-info h3{ font-size:0.6rem; color:#666; line-height: 0.8rem; padding-top: 0.2rem;}
+.buying-info h4{ font-size:0.5rem; color:#999; line-height: 0.8rem;}
+.buying-info p{ line-height: 0.7rem;}
+.buying-info p span{ font-size:0.6rem; color:#666;}
+.buying-info p strong{ color:#f63;}
+.buying-info p em{ color:#666; font-size:0.4rem; margin:0 0.3rem; line-height: 0.5rem; padding:0 0.2rem; display: inline-block; border:1px solid #f63;}
+.buying-info p del{ color:#999; font-size:0.45rem;}
+.buying-time{ font-size:0.6rem; padding:0.3rem 0.6rem; color:#666; height:0.9rem; line-height: 0.9rem;}
+.buying-time strong{ font-size:0.5rem;margin-right: 0.5rem;}
+.buying-time span{ color:#ff6666; padding:0 0.5rem;}
+.buying-time a.qg-btn{ float: right; height:0.9rem; padding:0 0.3rem; /*line-height: 0.9rem;*/ border:0; font-size:0.6rem; color:#fff; background:#0073e8; -moz-border-radius:0.2rem;-webkit-border-radius:0.2rem;border-radius:0.2rem; outline:none; margin-top: 0;}
+
+.no-data {
+    width: 6.5rem;
+    margin: 2.5rem auto;
+    font-size: 0.75rem;
+    color: #999;
+}
+.n-nbm {
+     width: 4rem;
+     margin: 0.5rem auto;
+ }
+.no-data i {
+    float: left;
+    font-size: 0.75rem;
+    /* margin-top: 0.125rem; */
+}
+.n-nbm i {
+    margin: 0;
+    line-height: 1rem;
+}
+.no-data p {
+    margin-left: 1.5rem;
+    line-height: 100%;
+    text-shadow: 1px 2px 2px #fff;
+    font-size: 0.6rem;
+}
+.n-nbm p {
+    line-height: 1rem;
+    margin-left: 1.2rem;
+    text-shadow: 1px 2px 2px #fff;
+}
